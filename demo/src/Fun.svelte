@@ -3,13 +3,13 @@
 <script>
   export let fontSize = 40;
 
-  setInterval(() => {
-    if(fontSize === 100) {
-      fontSize = 5;
-    } else {
-      fontSize += 1;
-    }
-  }, 30);
+  // setInterval(() => {
+  //   if(fontSize === 100) {
+  //     fontSize = 5;
+  //   } else {
+  //     fontSize += 1;
+  //   }
+  // }, 100);
 </script>
 
-<h1 style="font-size: {fontSize}px;">You Rock!! and roll!!</h1>
+<h2 style="font-size: {fontSize}px;">You Rock!! and roll!! (this is H2 from Fun)</h2>

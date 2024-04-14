@@ -1,18 +1,25 @@
 <script>
-  import Fun from './Fun.svelte';
-  import ChangeColor from './ChangeColor.svelte';
-  let size = 80;
-  let color = 'green';
+  import Fun from "./Fun.svelte";
 </script>
 
-<h1>Font Size is: {size}</h1>
-<Fun fontSize={size}/>
+<h1>Hello World!!</h1>
+<h2>This is H2 from App Component</h2>
+
+<!-- Even though FUN component has H2 tag it won't be styled because styles are scoped inside the HTML component they are in. -->
 <Fun />
 
-<!-- This will bind the parent components variable to child component i.e. child compoenent will be able to update the value of parent components variables. -->
-<Fun bind:fontSize={size}/>
+<style>
+  h1 {
+    color: blue
+  }
 
-<ChangeColor />
+  h2 {
+    color: green
+  }
 
-<!-- Shorthand if both exported variable and setting variable have same name. -->
-<ChangeColor {color} />
+  /* This is not a good way to do CSS, what you can do is create a global.css and import in main.js and write your styles in there. */
+
+  :global(h2) {
+    color: yellow
+  }
+</style>
