@@ -1,28 +1,25 @@
 <script>
-  let colorList = ['red', 'green', 'blue'];
-  let color = '';
-  setTimeout(() => {
-    colorList = [...colorList, 'white'];
-  }, 2000);
+  async function getQoute() {
+    const url = 'https://zenquotes.io/api/random';
+    const response = await fetch(url);
+    const [quoteInfo] = await response.json();
+    return quoteInfo;
+  }
 
-  function addToList() {
-    if(colorList.includes(color)) {
-      color = '';
-      return alert('Duplicate Key Entered!')
-    }
-    colorList = [color, ...colorList];
-    color = '';
+  let promiseQuote = getQoute();
+
+  function refreshQoute() {
+    promiseQuote = getQoute();
   }
 </script>
 
-<ul>
-  <!-- Since any update to colorList triggers a re-render of all list items, we can pass a unique key like here as color and only re-render based on the unique key. -->
-  {#each colorList as color, index (color)}
-  <li>{index+1}). {color}</li>
-  {/each}
-</ul>
+{#await promiseQuote}
+  <h2>Loading Quote. . . .</h2>
+{:then quoteInfo} 
+  <h2>{quoteInfo.q}</h2>
+  <h2>Author: {quoteInfo.a}</h2>
+{:catch error}
+  <h2>Error: {error.message}</h2>
+{/await}
 
-<input type="text" name="color" id="color" bind:value={color}>
-{#if color !== ''}
-  <button type="submit" on:click={addToList}>Add Color</button>
-{/if}
+<button on:click={refreshQoute}>Refresh Quote</button>
