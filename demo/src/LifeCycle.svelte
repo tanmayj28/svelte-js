@@ -1,30 +1,25 @@
 <script>
-  import { onMount, onDestroy } from "svelte";
-  let quote = '';
-  let loading = true;
-  let error = false;
+  import { onMount, onDestroy, beforeUpdate, afterUpdate } from "svelte";
 
-  onMount(async () => {
-    try {
-      const url  = 'https://zenquotes.io/api/random';
-      let response = await fetch(url);
-      const [quoteMessage] = await response.json();
-      quote = quoteMessage.q;
-    } catch(e) {
-      error = true;
+  onMount(() => {
+    console.log('Mounted!')
+
+    return () => {
+      console.log('Also destroyed! (but last)!')
     }
-    loading = false;
-  })
+  });
+
+  beforeUpdate(() => {
+    console.log('before update!!')
+  });
+
+  afterUpdate(() => {
+    console.log('after Update!!')
+  });
 
   onDestroy(() => {
     console.log('destroyed!!')
-  })
+  });
 </script>
 
-{#if loading}
-  <h2>Loading . . .</h2>
-  {:else if error}
-  <h2>Quote API not working!</h2>
-  {:else}
-  <h2>Quote: {quote}</h2>
-{/if}
+<h2>Mounted!</h2>
