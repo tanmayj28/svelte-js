@@ -1,10 +1,8 @@
 <script>
-  import LifeCycle from "./LifeCycle.svelte";
-  let checked = false;
+  import store from './stores/GeeLocation.Store'
+  const unsub = store.subscribe(info => {
+    console.log(info);
+  }) // this returns a function which you can use to usubscrive to the store.
+
+  console.log(unsub);
 </script>
-
-<input type="checkbox" bind:checked={checked}>
-
-{#if checked}
-  <LifeCycle />
-{/if}
