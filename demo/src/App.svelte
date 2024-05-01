@@ -20,11 +20,11 @@
   });
 
   function addToStore() {
-    countStore.update(n => n + 1);
+    countStore.addToStore();
   }
 
-  function subtractTFromStore() {
-    countStore.update(n => n - 1);
+  function subtractFromStore() {
+    countStore.subtractFromStore();
   }
 </script>
 
@@ -33,4 +33,5 @@
 </h1>
 
 <button on:click={addToStore}>Add</button>
-<button on:click={subtractTFromStore}>Subtract</button>
+<button on:click={subtractFromStore}>Subtract</button>
+<button on:click={() => { countStore.reset(); }}>Reset</button>
