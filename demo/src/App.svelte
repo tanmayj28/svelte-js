@@ -1,37 +1,13 @@
 <script>
-  import countStore from "./stores/count.store";
-  import { onDestroy } from 'svelte';
-  const unsub = countStore.subscribe((number) => {
-    console.log(number, 'Count Store');
-  });
-
-  // This would just set a new value for the  number in the store.
-  // setTimeout(() => {
-  //   countStore.set(20);
-  // }, 2000);
-
-  // This takes and updates the existing store value, i.e. adds 1 to the existing count. Update can take in an anonyous function as input.
-  // setTimeout(() => {
-  //   countStore.update(n => n + 1);
-  // }, 2000);
-
-  onDestroy(() => {
-    unsub();
-  });
-
-  function addToStore() {
-    countStore.addToStore();
-  }
-
-  function subtractFromStore() {
-    countStore.subtractFromStore();
-  }
+  import { storeOne, storeTwo, storeSumEven, storeOneEven } from './stores/derived.store';
 </script>
 
-<h1>
-  {$countStore}
-</h1>
+<h2>
+  Sum of stores is Even? {$storeSumEven}
+</h2>
 
-<button on:click={addToStore}>Add</button>
-<button on:click={subtractFromStore}>Subtract</button>
-<button on:click={() => { countStore.reset(); }}>Reset</button>
+<h3>Store One: {$storeOne}</h3>
+<input type="range" bind:value={$storeOne} min="0" max="10">
+<h3>Store Two: {$storeTwo}</h3>
+<input type="range" bind:value={$storeTwo} min="0" max="10">
+<h3>Store One Even: {$storeOneEven}</h3>
