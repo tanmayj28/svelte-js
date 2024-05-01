@@ -1,8 +1,10 @@
 <script>
-  import store from './stores/GeeLocation.Store'
-  const unsub = store.subscribe(info => {
-    console.log(info);
-  }) // this returns a function which you can use to usubscrive to the store.
-
-  console.log(unsub);
+  import GeoLocation from "./GeoLocation.svelte";
+  let checked = false;
 </script>
+
+<input type="checkbox" bind:checked={checked}>
+
+{#if checked}
+  <GeoLocation />
+{/if}
