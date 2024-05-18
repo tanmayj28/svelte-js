@@ -1,13 +1,31 @@
+<!-- An action is a function that gets run when an HTML Element loads on a page. -->
 <script>
-  import { storeOne, storeTwo, storeSumEven, storeOneEven } from './stores/derived.store';
+  let show = false;
+  function exampleAction(node) {
+    console.log(node);
+    const contextFunc = (e) => {
+      e.preventDefault();
+      alert('Right Click!')
+    };
+    node.addEventListener('contextmenu', contextFunc);
+    return {
+      destroy() {
+        console.log('Destroy was called!');
+        node.removeEventListener('contextmenu', contextFunc);
+      }
+    }
+  }
 </script>
 
-<h2>
-  Sum of stores is Even? {$storeSumEven}
-</h2>
+<input type="checkbox" bind:checked={show} />
+{#if show}
+  <div use:exampleAction />
+{/if}
 
-<h3>Store One: {$storeOne}</h3>
-<input type="range" bind:value={$storeOne} min="0" max="10">
-<h3>Store Two: {$storeTwo}</h3>
-<input type="range" bind:value={$storeTwo} min="0" max="10">
-<h3>Store One Even: {$storeOneEven}</h3>
+<style>
+  div {
+    width: 300px;
+    height: 300px;
+    border: solid black 1px;
+  }
+</style>
