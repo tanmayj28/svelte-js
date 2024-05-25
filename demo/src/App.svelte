@@ -1,13 +1,14 @@
 <!-- An action is a function that gets run when an HTML Element loads on a page. -->
 <script>
   let show = false;
-  function exampleAction(node) {
+  function exampleAction(node, color) {
     console.log(node);
     const contextFunc = (e) => {
       e.preventDefault();
-      alert('Right Click!')
+      alert('Right Click!');
     };
     node.addEventListener('contextmenu', contextFunc);
+    node.style.backgroundColor = color;
     return {
       destroy() {
         console.log('Destroy was called!');
@@ -19,7 +20,7 @@
 
 <input type="checkbox" bind:checked={show} />
 {#if show}
-  <div use:exampleAction />
+  <div use:exampleAction={'#AA0000'} />
 {/if}
 
 <style>
